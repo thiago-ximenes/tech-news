@@ -7,11 +7,13 @@ def fetch(url):
     """Seu código deve vir aqui"""
     sleep(1)
     try:
-        response = requests.get(url, timeout=3)
+        response = requests.get(
+            url, timeout=3, headers={"user-agent": "Fake user-agent"}
+        )
         response.raise_for_status()
     except (requests.HTTPError, requests.ReadTimeout):
         pass
-    else: 
+    else:
         return response.text
 
 
