@@ -5,7 +5,6 @@ from time import sleep
 
 # Requisito 1
 def fetch(url):
-    """Seu código deve vir aqui"""
     sleep(1)
     try:
         response = requests.get(
@@ -20,7 +19,6 @@ def fetch(url):
 
 # Requisito 2
 def scrape_novidades(html_content):
-    """Seu código deve vir aqui"""
     selector = parsel.Selector(text=html_content)
     links = selector.css("h2.entry-title a::attr(href)").getall()
     return links
@@ -28,7 +26,6 @@ def scrape_novidades(html_content):
 
 # Requisito 3
 def scrape_next_page_link(html_content):
-    """Seu código deve vir aqui"""
     selector = parsel.Selector(text=html_content)
     link = selector.css(
         "div.nav-links a.next.page-numbers::attr(href)"
@@ -39,9 +36,8 @@ def scrape_next_page_link(html_content):
 
 # Requisito 4
 def scrape_noticia(html_content):
-    """Seu código deve vir aqui"""
-
+    pass
 
 # Requisito 5
 def get_tech_news(amount):
-    """Seu código deve vir aqui"""
+    pass
