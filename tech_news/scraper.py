@@ -41,20 +41,24 @@ def scrape_noticia(html_content):
     timestamp = selector.css("ul.post-meta li.meta-date::text").get()
     writer = selector.css("ul.post-meta span.author a::text").get()
     select_comments = selector.css("#comments").get()
-    comments_count = "".join(
-        filter(lambda i: i.isdigit(), select_comments)
-    ) if select_comments != None else 0
+    comments_count = (
+        "".join(filter(lambda i: i.isdigit(), select_comments))
+        if select_comments is not None
+        else 0
+    )
     summary = selector.css("div.entry-content p:first-of-type").get()
     tags = selector.css("ul li a[rel='tag']::text").getall()
     category = selector.css("div.meta-category span.label::text").get()
 
     news_dict = {
         "url": url,
-        "title": title.replace('\xa0', '').strip(),
+        "title": title.replace("\xa0", "").strip(),
         "timestamp": timestamp,
         "writer": writer,
         "comments_count": comments_count,
-        "summary": re.sub(re.compile('<.*?>'), '', summary).replace('\xa0', '').strip(),
+        "summary": re.sub(re.compile("<.*?>"), "", summary)
+        .replace("\xa0", "")
+        .strip(),
         "tags": tags,
         "category": category,
     }
