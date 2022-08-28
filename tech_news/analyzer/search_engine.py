@@ -1,6 +1,19 @@
+from tech_news import database
+
+
 # Requisito 6
 def search_by_title(title):
-    """Seu código deve vir aqui"""
+    query = {"title": {"$regex": title, "$options": "i"}}
+    options = {
+        "title": 1,
+        "url": 1,
+        "_id": 0,
+    }
+    search_news = list(database.db.news.find(query, options))
+
+    serialized_news = [(new["title"], new["url"]) for new in search_news]
+
+    return serialized_news
 
 
 # Requisito 7
