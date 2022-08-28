@@ -6,9 +6,9 @@ def serialize_news(news):
     return [(new["title"], new["url"]) for new in news]
 
 
-# Requisito 6
-def search_by_title(title):
-    query = {"title": {"$regex": title, "$options": "i"}}
+def get_news(param, field):
+    query = {}
+    query[field] = {"$regex": param, "$options": "i"}
     options = {
         "title": 1,
         "url": 1,
@@ -16,7 +16,14 @@ def search_by_title(title):
     }
     search_news = list(database.db.news.find(query, options))
 
+    print(search_news)
+
     return serialize_news(search_news)
+
+
+# Requisito 6
+def search_by_title(title):
+    return get_news(title, "title")
 
 
 # Requisito 7
@@ -28,30 +35,14 @@ def search_by_date(date):
     except ValueError:
         raise ValueError("Data inválida")
 
-    query = {"timestamp": {"$regex": formatted_date, "$options": "i"}}
-    options = {
-        "title": 1,
-        "url": 1,
-        "_id": 0,
-    }
-    search_news = list(database.db.news.find(query, options))
-
-    return serialize_news(search_news)
+    return get_news(formatted_date, "timestamp")
 
 
 # Requisito 8
 def search_by_tag(tag):
-    query = {"tags": {"$regex": tag, "$options": "i"}}
-    options = {
-        "title": 1,
-        "url": 1,
-        "_id": 0,
-    }
-    search_news = list(database.db.news.find(query, options))
-
-    return serialize_news(search_news)
+    return get_news(tag, "tags")
 
 
 # Requisito 9
 def search_by_category(category):
-    """Seu código deve vir aqui"""
+    return get_news(category, "category")
