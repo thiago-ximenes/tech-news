@@ -41,7 +41,15 @@ def search_by_date(date):
 
 # Requisito 8
 def search_by_tag(tag):
-    """Seu código deve vir aqui"""
+    query = {"tags": {"$regex": tag, "$options": "i"}}
+    options = {
+        "title": 1,
+        "url": 1,
+        "_id": 0,
+    }
+    search_news = list(database.db.news.find(query, options))
+
+    return serialize_news(search_news)
 
 
 # Requisito 9
